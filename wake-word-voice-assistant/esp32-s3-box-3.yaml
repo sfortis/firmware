@@ -52,6 +52,9 @@ esphome:
           then:
             - lambda: id(init_in_progress) = false;
             - script.execute: draw_display
+      - output.set_level:
+        id: speaker_volume
+        level: 0.95  # 85% volume
 
 esp32:
   board: esp32s3box
@@ -80,6 +83,12 @@ external_components:
   - source: github://jesserockz/esphome-components
     components: [file]
     refresh: 0s
+  - source: github://sammcj/esphome-esp-s3-box-3-volume@main
+    components: [esp_box_volume]
+    refresh: always    
+
+esp_box_volume:
+  id: speaker_volume
 
 api:
   on_client_connected:
